@@ -11,4 +11,13 @@ describe("两数之和返回值", () => {
 
     expect(res).toEqual(expectedRes);
   });
+  test("nums乱序", () => {
+    const nums = [11, 2, 7, 15];
+    const target = 9;
+    const expectedRes = [2, 7];
+
+    const res = twoSum(nums, target);
+
+    expect(res).toEqual(expectedRes);
+  });
 });

@@ -4,6 +4,9 @@
  * @description 使用双指针
  */
 function twoSum(nums: number[], target: number): number[] {
+  // 一定要先升序排序！！！
+  nums.sort((a, b) => a - b); // 必须显式写 compareFn，否则是按 ASCII 升序排序
+
   let lo = 0,
     hi = nums.length - 1;
 
