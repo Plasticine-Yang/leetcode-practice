@@ -7,8 +7,8 @@ function twoSum(nums: number[], target: number): number[] {
   // 一定要先升序排序！！！
   nums.sort((a, b) => a - b); // 必须显式写 compareFn，否则是按 ASCII 升序排序
 
-  let lo = 0,
-    hi = nums.length - 1;
+  let lo = 0;
+  let hi = nums.length - 1;
 
   while (lo < hi) {
     const sum = nums[lo] + nums[hi];
