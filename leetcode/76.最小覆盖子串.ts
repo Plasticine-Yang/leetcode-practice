@@ -7,13 +7,15 @@
 // @lc code=start
 
 /**
- * @description 扩展原生的 Map 增加 getOrdefault 方法用于指定不存在的 key 的默认值
+ * @description 计数器 -- 使用 Map 实现
  */
-class MyMap<K = any, V = any> extends Map<K, V> {
-  getOrDefault(key: K, defaultVal: V): V {
-    if (this.has(key)) return this.get(key)!;
-
-    return defaultVal;
+class Counter<K = any> extends Map<K, number> {
+  count(key: K) {
+    if (this.has(key)) {
+      this.set(key, this.get(key)! + 1);
+    } else {
+      this.set(key, 1);
+    }
   }
 }
 
@@ -36,12 +38,12 @@ function minWindow(s: string, t: string): string {
   let valid = 0;
   let start = 0; // 最终结果字符串在 s 中的起始下标
   let len = Number.MAX_SAFE_INTEGER; // 最终结果字符串的长度
-  const window = new MyMap<string, number>();
-  const need = new MyMap<string, number>();
+  const window = new Counter<string>();
+  const need = new Counter<string>();
 
   // 初始化 need
   for (const char of t) {
-    need.set(char, need.getOrDefault(char, 0) + 1);
+    need.count(char);
   }
 
   // 滑动窗口
@@ -52,7 +54,7 @@ function minWindow(s: string, t: string): string {
     // 进行窗口内数据的更新 -- 更新 window 哈希表
     if (need.has(c)) {
       // 如果 c 是 need 中需要的 则将其加入到 window 中 (已有则将出现次数加 1)
-      window.set(c, window.getOrDefault(c, 0) + 1);
+      window.count(c);
       // 判断增加后 c 在 window 中出现的次数是否满足 need 中对应的需求 是的话则让 valid++
       if (window.get(c) === need.get(c)) {
         valid++;
