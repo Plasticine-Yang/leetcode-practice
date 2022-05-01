@@ -13,12 +13,24 @@ class Counter<K = any> extends Map<K, number> {
   /**
    * @description 给 key 计数 key 存在时自增 1，不存在时则为 1
    * @param key key
+   * @param step 步长 -- 默认为 1，即每次自增 1
    */
-  count(key: K) {
+  count(key: K, step: number = 1) {
     if (this.has(key)) {
-      this.set(key, this.get(key)! + 1);
+      this.set(key, this.get(key)! + step);
     } else {
       this.set(key, 1);
+    }
+  }
+
+  /**
+   * @description 减少 key 的计数，只会在 key 存在的时候减少
+   * @param key key
+   * @param step 步长 -- 默认为 1，即每次自减 1
+   */
+  decrease(key: K, step: number = 1) {
+    if (this.has(key)) {
+      this.set(key, this.get(key)! - step);
     }
   }
 }
@@ -89,7 +101,7 @@ function minWindow(s: string, t: string): string {
         }
 
         // d 在 window 中的出现次数减 1
-        window.set(d, window.get(d)! - 1); // 用 ! 断言存在是因为右侧窗口遍历的时候肯定已经将 d 添加到窗口了
+        window.decrease(d);
       }
     }
   }
