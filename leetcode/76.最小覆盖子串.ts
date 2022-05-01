@@ -10,6 +10,10 @@
  * @description 计数器 -- 使用 Map 实现
  */
 class Counter<K = any> extends Map<K, number> {
+  /**
+   * @description 给 key 计数 key 存在时自增 1，不存在时则为 1
+   * @param key key
+   */
   count(key: K) {
     if (this.has(key)) {
       this.set(key, this.get(key)! + 1);
