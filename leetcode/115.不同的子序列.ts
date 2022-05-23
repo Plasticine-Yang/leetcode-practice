@@ -91,3 +91,5 @@ const res = numDistinct(
   'bcddceeeebecbc'
 );
 console.log(res);
+
+export {};
