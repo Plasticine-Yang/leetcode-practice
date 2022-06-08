@@ -7,26 +7,22 @@
 // @lc code=start
 function combine(n: number, k: number): number[][] {
   const res: number[][] = [];
-  const path: number[] = [];
+  const track: number[] = [];
 
-  const backtrack = (n: number, k: number, startIndex: number): void => {
+  const backtrack = (start: number) => {
     // base case
-    if (path.length === k) {
-      res.push([...path]);
-      return;
+    if (track.length === k) {
+      res.push([...track]);
     }
 
-    for (let i = startIndex; i <= n - (k - path.length) + 1; i++) {
-      // 做选择
-      path.push(i);
-      // 进入下一层
-      backtrack(n, k, i + 1);
-      // 撤销选择
-      path.pop();
+    for (let i = start; i <= n; i++) {
+      track.push(i);
+      backtrack(i + 1);
+      track.pop();
     }
   };
 
-  backtrack(n, k, 1);
+  backtrack(1);
 
   return res;
 }
